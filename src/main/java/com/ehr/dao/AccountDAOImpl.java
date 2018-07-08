@@ -29,11 +29,12 @@ public class AccountDAOImpl implements AccountDAO {
         accountEntity.setPsCode(account.getPsCode());
         try {
             Session currentSession = sessionFactory.getCurrentSession();
-            //currentSession.save(accountEntity);
-            currentSession.saveOrUpdate(accountEntity);
+            currentSession.save(accountEntity);
+            //currentSession.saveOrUpdate(accountEntity);
         } catch (Exception ex) {
             ex.printStackTrace();
             saveFlag = false;
+            System.out.println("AccountDAOImpl.saveAccount() thrown the exception. Flag has been setted to false.");
         }
         return saveFlag;
     }
@@ -56,7 +57,6 @@ public class AccountDAOImpl implements AccountDAO {
                 account.setPsCode(accountEntity.getPsCode());
                 list.add(account);
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -68,16 +68,22 @@ public class AccountDAOImpl implements AccountDAO {
         Account account = new Account();
         try {
             Session session = sessionFactory.getCurrentSession();
-            AccountEntity accountEntity = (AccountEntity) session.load(AccountEntity.class, accountNo);
-            account.setAccountNo(accountEntity.getAccNo());
-            account.setAccountHolderName(accountEntity.getAccHolderName());
-            account.setBalance(accountEntity.getBalance());
-            account.setAccountType(accountEntity.getAccountType());
-            account.setDateOfBirth(accountEntity.getDateOfBirth());
-            account.setPsCode(accountEntity.getPsCode());
+            /*session.GET() returns null if empty, but session.LOAD() doesn't*/
+            AccountEntity accountEntity = (AccountEntity) session.get(AccountEntity.class, accountNo);
+            if (accountEntity != null) {
+                account.setAccountNo(accountEntity.getAccNo());
+                account.setAccountHolderName(accountEntity.getAccHolderName());
+                account.setBalance(accountEntity.getBalance());
+                account.setAccountType(accountEntity.getAccountType());
+                account.setDateOfBirth(accountEntity.getDateOfBirth());
+                account.setPsCode(accountEntity.getPsCode());
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        if (!accountNo.equals(account.getAccountNo())) account = null;
+
         return account;
     }
 
@@ -89,7 +95,6 @@ public class AccountDAOImpl implements AccountDAO {
             AccountEntity accountEntity = (AccountEntity) session.load(AccountEntity.class, accountNo);
             session.delete(accountEntity);
         } catch (Exception ex) {
-            // TODO: handle exception
             ex.printStackTrace();
             deleteFlag = false;
         }
