@@ -39,16 +39,11 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <!--<property name="jdbcUrl"
-                  value="jdbc:mysql://localhost:3306/bankapplication?useSSL=false;useUnicode=true;useJDBCCompliantTimezoneShift=true;useLegacyDatetimeCode=false;serverTimezone=UTC" />
-        -->
-        <!--<property name="jdbcUrl"
-                  value="jdbc:mysql://localhost:3306/bankapplication?useSSL=false;useJDBCCompliantTimezoneShift=true;useLegacyDatetimeCode=false;serverTimezone=UTC" />-->
         <property name="jdbcUrl"
                   value="jdbc:mysql://localhost:3306/bankapplication?useSSL=false" />
         <property name="user" value="root" />
         <property name="password" value="root" />
-        <property name="preferredTestQuery" value="SELECT 1" />
+        <!--<property name="preferredTestQuery" value="SELECT 1" />-->
     </bean>
 
     <bean id="sessionFactory"

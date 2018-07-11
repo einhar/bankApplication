@@ -61,6 +61,29 @@
 
 		<div class="row">
 			<div class="col-12">
+				<c:url value="/logout" var="logoutUrl" />
+
+				<form action="${logoutUrl}" method="post" id="logoutForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+						   value="${_csrf.token}" />
+				</form>
+
+				<script>
+                    function formSubmit() {
+                        document.getElementById("logoutForm").submit();
+                    }
+				</script>
+
+				<p class="display-5">
+					Welcome : ${username} , <a href="javascript:formSubmit()">
+					Logout</a>
+				</p>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12">
 				<a href="<c:url value='/new' />" class="btn btn-lg btn-primary">Add New Account</a>
 			</div>
 		</div>
