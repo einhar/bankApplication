@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -39,6 +40,11 @@ public class AccountController {
 		System.out.println("showHomePage();");
 		return "index";
 	}
+
+	@RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String viewAccount(Model model) {
+	    return "findAccount";
+    }
 	
 	@RequestMapping("/new")
 	public String newAccount(Model model) {
@@ -111,4 +117,5 @@ public class AccountController {
 	    accountService.deleteAccount(accountNo);
         return "redirect:/list";
     }
+
 }
