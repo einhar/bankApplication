@@ -100,7 +100,7 @@
 			        	display(data);
 				  },
 			error : function(e) {
-					$('#divResults').show();
+					$('#divResults').hide();
 					$('#divError').show();
 				},
 			done : function(e) {
