@@ -5,7 +5,6 @@
 				<br />
 				Copyright &copy; - BankApp <%= java.time.Year.now().getValue() %>
 				<br />
-				Copyright &copy; - BankApp <%= new java.util.Date().getYear() + 1900 %>
 			</p>
 		</footer>
 	</div>
